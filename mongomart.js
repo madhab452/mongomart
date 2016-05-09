@@ -69,11 +69,7 @@ MongoClient.connect('mongodb://localhost:27017/mongomart', function(err, db) {
         var page = req.query.page ? parseInt(req.query.page) : 0;
         var category = req.query.category ? req.query.category : "All";
 
-        var categories = db.item.aggregate([
-            {$group: {_id: {_id: "$category"},num: {$sum:1}}},
-            {$sort : { _id : 1 }}
-        ]);
-
+        
         items.getCategories(function(categories) {
             
             items.getItems(category, page, ITEMS_PER_PAGE, function(pageItems) {
